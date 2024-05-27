@@ -1,5 +1,5 @@
-import { useContext, useEffect } from 'react';
-import AuthContext from '../auth/AuthContext';
+import { useEffect, useState } from 'react';
+import { useAuth } from '../auth/AuthContext';
 import { Navigate } from 'react-router-dom';
 
 const PrivateRoute = ({
@@ -7,9 +7,9 @@ const PrivateRoute = ({
 }: {
   privateElement: React.ReactNode;
 }) => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { phoneNumber } = useAuth();
 
-  if (!isLoggedIn) {
+  if (!phoneNumber) {
     return <Navigate to="/" />;
   }
 

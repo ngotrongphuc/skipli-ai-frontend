@@ -1,8 +1,8 @@
 import { Box, Container, Typography } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import InputPhone from './InputPhone';
 import InputOtp from './InputOtp';
-import AuthContext from '../../auth/AuthContext';
+import  { useAuth } from '../../auth/AuthContext';
 import { createNewAccessCode, validateAccessCode } from '../../api/auth';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { unformatPhoneNumber } from '../../utils';
@@ -12,7 +12,8 @@ const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [otp, setOTP] = useState<string>('');
   const [isOTPStep, setIsOTPStep] = useState(false);
-  const { isLoggedIn, login } = useContext(AuthContext);
+  const { phoneNumber:storedPhoneNumber, setPhoneNumber: setStoredPhoneNumber } = useAuth();
+  const unformatedPhoneNumber = useMemo(()=>unformatPhoneNumber(phoneNumber),[phoneNumber])
   const navigate = useNavigate();
 
   const handleChangePhoneNumber = (newPhoneNumber: string) => {
@@ -25,20 +26,23 @@ const Login = () => {
 
   const submitPhoneNumber = async () => {
     try {
-      await createNewAccessCode({
-        phoneNumber: unformatPhoneNumber(phoneNumber),
-      });
+      // await createNewAccessCode({
+      //   phoneNumber: unformatedPhoneNumber,
+      // });
       setIsOTPStep(true);
     } catch (error) {}
   };
 
   const submitOtp = async () => {
     try {
-      const result = await validateAccessCode({
-        accessCode: otp,
-        phoneNumber: unformatPhoneNumber(phoneNumber),
-      });
-      result.success && login();
+      // const result = await validateAccessCode({
+      //   accessCode: otp,
+      //   phoneNumber: unformatedPhoneNumber,
+      // });
+      // if(result.success){
+        setStoredPhoneNumber(unformatedPhoneNumber);
+        navigate('dashboard')
+      // }
     } catch (error) {}
   };
 
@@ -47,9 +51,8 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log(isLoggedIn);
-    isLoggedIn && navigate('/dashboard', { replace: true });
-  }, [isLoggedIn]);
+    storedPhoneNumber && navigate('dashboard', { replace: true });
+  }, []);
 
   return (
     <Box
@@ -65,7 +68,7 @@ const Login = () => {
       >
         <ArrowBackIcon
           fontSize="large"
-          sx={{ marginBottom: 45, cursor: 'pointer' }}
+          sx={{ mb: 45, cursor: 'pointer' }}
           onClick={goBack}
         />
       </Container>

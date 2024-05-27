@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -16,22 +16,19 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import DesignServicesOutlinedIcon from '@mui/icons-material/DesignServicesOutlined';
+import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
-import { Link, Outlet } from 'react-router-dom';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthContext';
 
-const DrawerItems = [
-  {
-    text: 'Services',
-    slug: 'services',
-    icon: <DesignServicesOutlinedIcon />,
-  },
-  {
-    text: 'Profile',
-    slug: 'profile',
-    icon: <PersonOutlinedIcon />,
-  },
-];
+type DrawerItemType = {
+  text: string;
+  slug: string;
+  icon: React.ReactNode;
+  func?: () => void;
+};
 
 const drawerWidth = 240;
 
@@ -102,7 +99,47 @@ const Drawer = styled(MuiDrawer, {
 
 const Dashboard = () => {
   const theme = useTheme();
-  const [open, setOpen] = React.useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const pathname = location.pathname;
+  const segments = pathname.split('/');
+  const currentRoutePath = segments[segments.length - 1];
+  const [shouldShowGoBack, setShouldShowGoBack] = useState<boolean>(false);
+  const {setPhoneNumber}=useAuth()
+
+  const DrawerItems: DrawerItemType[] = [
+    {
+      text: 'Services',
+      slug: 'services',
+      icon: <AppsOutlinedIcon />,
+    },
+    {
+      text: 'Profile',
+      slug: 'profile',
+      icon: <PersonOutlinedIcon />,
+    },
+    {
+      text: 'Logout',
+      slug: '/',
+      icon: <LogoutOutlinedIcon sx={{ transform: 'scaleX(-1)' }} />,
+      func: () => {
+        setPhoneNumber(null)
+      },
+    },
+  ];
+
+  useEffect(() => {
+    if (DrawerItems.some((item) => item.slug === currentRoutePath)) {
+      setShouldShowGoBack(false);
+    } else {
+      setShouldShowGoBack(true);
+    }
+  }, [currentRoutePath]);
+
+  const goBack = () => {
+    navigate(-1);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -113,7 +150,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', height: '100%' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
@@ -146,38 +183,50 @@ const Dashboard = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {DrawerItems.map(({ text, slug, icon }, index) => (
-            <Link
-              key={text}
-              to={slug}
-              style={{ textDecoration: 'none', color: 'black' }}
-            >
-              <ListItem disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                  }}
-                >
-                  <ListItemIcon
+          {DrawerItems.map(
+            ({ text, slug, icon, func }: DrawerItemType, index) => (
+              <Link
+                key={text}
+                to={slug}
+                style={{ textDecoration: 'none', color: 'black' }}
+                onClick={func}
+              >
+                <ListItem disablePadding sx={{ display: 'block' }}>
+                  <ListItemButton
                     sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
                     }}
                   >
-                    {icon}
-                  </ListItemIcon>
-                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-          ))}
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {icon}
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={text}
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              </Link>
+            ),
+          )}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, display: 'flex', flexDirection: 'column' }}
+      >
         <DrawerHeader />
+        {shouldShowGoBack && (
+          <ArrowBackIcon sx={{ cursor: 'pointer' }} onClick={goBack} />
+        )}
         <Outlet />
       </Box>
     </Box>

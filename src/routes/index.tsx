@@ -1,9 +1,10 @@
 import { Navigate, createBrowserRouter } from 'react-router-dom';
-import Login from '../pages/login';
-import Services from '../pages/services';
-import Profile from '../pages/profile';
+import Login from '../pages/Login';
+import Services from '../pages/Services';
+import Profile from '../pages/Profile';
 import Dashboard from '../layouts/Dashboard';
 import PrivateRoute from './PrivateRoute';
+import StartFromScratch from '../pages/Services/StartFromScratch';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: 'services',
         element: <Services />,
+      },
+      {
+        path: 'services/start-from-scratch',
+        element: <StartFromScratch />,
       },
       {
         path: 'profile',
