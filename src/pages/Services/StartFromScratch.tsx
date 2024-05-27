@@ -11,7 +11,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -31,7 +31,7 @@ const StartFromScratch = () => {
   const socialNetworkError = hasError && formData.socialNetwork.length === 0;
   const subjectError = hasError && formData.subject.length === 0;
   const toneError = hasError && formData.tone.length === 0;
-  const captionsListRef = useRef<HTMLDivElement>(null);
+  const captionsListAnchorRef = useRef<HTMLDivElement>(null);
 
   const handleSocialClick = (socialNetwork: string) => {
     setFormData({ ...formData, socialNetwork });
@@ -54,9 +54,13 @@ const StartFromScratch = () => {
     const result = await generatePostCaptions(formData);
     setLoading(false);
     setCaptionsList(result);
-    const { top }: any = captionsListRef.current?.getBoundingClientRect();
-    window.scrollTo({ top: window.pageYOffset + top - 90, behavior: 'smooth' });
   };
+
+  useEffect(() => {
+    // scroll to captions list after generated
+    const { top }: any = captionsListAnchorRef.current?.getBoundingClientRect();
+    window.scrollTo({ top: window.pageYOffset + top - 90, behavior: 'smooth' });
+  }, [captionsList]);
 
   const toneItems = [
     { value: 'friendly', label: 'Friendly' },
@@ -170,7 +174,7 @@ const StartFromScratch = () => {
       </LoadingButton>
 
       <Typography
-        ref={captionsListRef}
+        ref={captionsListAnchorRef}
         variant="h4"
         fontWeight="600"
         fontFamily="dosis"

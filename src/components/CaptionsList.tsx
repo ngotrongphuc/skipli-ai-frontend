@@ -28,7 +28,7 @@ const CaptionsList = ({
       ) : (
         <Stack spacing={3}>
           {captionsList.map((item: string, index: number) => {
-            return <CaptionCardItem key={index} content={item} index={index} />;
+            return <CaptionCardItem key={index} content={item} />;
           })}
         </Stack>
       )}

@@ -8,30 +8,10 @@ import {
 import { saveGeneratedContent, unsaveContent } from '../api/services';
 import React, { useState } from 'react';
 import { useAuth } from '../auth/AuthContext';
+import ShareButton from './ShareButton';
+import SaveButton from './SaveButton';
 
-type CaptionCardItemProps = {
-  content: string;
-  index: number;
-};
-
-const CaptionCardItem = ({ content, index }: CaptionCardItemProps) => {
-  const { phoneNumber } = useAuth();
-  const [captionId, setCaptionId] = useState<string | null>(null);
-
-  const saveCaption = async () => {
-    if (!phoneNumber) return;
-    if (captionId) {
-      const { success } = await unsaveContent({ phoneNumber, captionId });
-      success && setCaptionId(null);
-    } else {
-      const { success, captionId } = await saveGeneratedContent({
-        phoneNumber,
-        caption: content,
-      });
-      success && setCaptionId(captionId);
-    }
-  };
-
+const CaptionCardItem = ({ content }: { content: string }) => {
   return (
     <Card
       variant="outlined"
@@ -43,16 +23,8 @@ const CaptionCardItem = ({ content, index }: CaptionCardItemProps) => {
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: 'end' }}>
-        <Button
-          variant={captionId ? 'contained' : 'outlined'}
-          size="large"
-          onClick={saveCaption}
-        >
-          {captionId ? 'Saved' : 'Save'}
-        </Button>
-        <Button variant="outlined" size="large" color="success">
-          Share
-        </Button>
+        <SaveButton content={content} />
+        <ShareButton content={content} />
       </CardActions>
     </Card>
   );
