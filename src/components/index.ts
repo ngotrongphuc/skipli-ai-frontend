@@ -1,6 +1,13 @@
 import CaptionCardItem from './CaptionCardItem';
-import CaptionsList from './CaptionsList';
+import GeneratedCaptionsList from './GeneratedCaptionsList';
 import SaveButton from './SaveButton';
 import ShareButton from './ShareButton';
+import SavedContentsList from './SavedContentsList';
 
-export { CaptionCardItem, CaptionsList, SaveButton, ShareButton };
+export {
+  CaptionCardItem,
+  GeneratedCaptionsList,
+  SaveButton,
+  ShareButton,
+  SavedContentsList,
+};

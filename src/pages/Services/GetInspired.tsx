@@ -13,7 +13,7 @@ import {
   generatePostIdeas,
 } from '../../api/services';
 import React, { useEffect, useRef, useState } from 'react';
-import { CaptionsList } from '../../components';
+import { GeneratedCaptionsList } from '../../components';
 
 const GetInspired = () => {
   const [formData, setFormData] = useState({
@@ -157,7 +157,7 @@ const GetInspired = () => {
       >
         Captions generated for you
       </Typography>
-      <CaptionsList subject={formData.idea} captionsList={captionsList} loading={loadingCaptions} />
+      <GeneratedCaptionsList subject={formData.idea} captionsList={captionsList} loading={loadingCaptions} />
     </Container>
   );
 };

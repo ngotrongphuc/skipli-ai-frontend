@@ -13,17 +13,10 @@ import {
   FacebookIcon,
   FacebookShareButton,
 } from 'react-share';
+import { ContentType } from 'utils/types';
 
-type ContentType={
-  content: {
-    subject: string;
-    caption: string;
-  }
-}
-
-const TooltipModal = ({ content }: ContentType) => {
+const TooltipModal = ({ content }: { content: ContentType }) => {
   const shareUrl = 'https://www.skiplinow.com/';
-  const title = 'Skipli';
 
   return (
     <Box px={2} py={1}>
@@ -38,7 +31,7 @@ const TooltipModal = ({ content }: ContentType) => {
   );
 };
 
-const ShareButton = ({ content }: ContentType) => {
+const ShareButton = ({ content }: { content: ContentType }) => {
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const openTooltip = () => {

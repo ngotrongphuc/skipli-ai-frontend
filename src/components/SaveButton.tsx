@@ -2,18 +2,16 @@ import { Button } from '@mui/material';
 import { useAuth } from '../auth/AuthContext';
 import React, { useState } from 'react';
 import { saveContent, unsaveContent } from '../api/services';
+import { ContentType } from 'utils/types';
 
-type ContentType = {
-  content: {
-    subject: string;
-    caption: string;
-  };
-};
-
-const SaveButton = ({ content }: ContentType) => {
+const SaveButton = ({ content }: { content: ContentType }) => {
   const { phoneNumber } = useAuth();
-  const [contentId, setContentId] = useState<string | null>(null);
-  const [captionId, setCaptionId] = useState<string | null>(null);
+  const [contentId, setContentId] = useState<string | null>(
+    content.contentId || null,
+  );
+  const [captionId, setCaptionId] = useState<string | null>(
+    content.captionId || null,
+  );
 
   const saveCaption = async () => {
     if (!phoneNumber) return;
@@ -24,6 +22,7 @@ const SaveButton = ({ content }: ContentType) => {
         captionId,
       });
       if (success) {
+        content.onDelete?.(contentId,captionId);
         setContentId(null);
         setCaptionId(null);
       }
@@ -41,11 +40,11 @@ const SaveButton = ({ content }: ContentType) => {
 
   return (
     <Button
-      variant={contentId ? 'contained' : 'outlined'}
+      variant={captionId ? 'contained' : 'outlined'}
       size="large"
       onClick={saveCaption}
     >
-      {contentId ? 'Saved' : 'Save'}
+      {captionId ? 'Unsave' : 'Save'}
     </Button>
   );
 };

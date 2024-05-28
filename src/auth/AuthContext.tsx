@@ -1,9 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-
-type AuthContextType = {
-  phoneNumber: string | null;
-  setPhoneNumber: (phoneNumber: string | null) => void;
-};
+import { AuthContextType } from 'utils/types';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 

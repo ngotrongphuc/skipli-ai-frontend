@@ -6,15 +6,9 @@ import {
 } from '@mui/material';
 import ShareButton from './ShareButton';
 import SaveButton from './SaveButton';
+import { ContentType } from 'utils/types';
 
-type ContentType={
-  content: {
-    subject: string;
-    caption: string;
-  }
-}
-
-const CaptionCardItem = ({ content }: ContentType) => {
+const CaptionCardItem = ({ content }: {content: ContentType}) => {
   return (
     <Card
       variant="outlined"

@@ -16,7 +16,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { generatePostCaptions } from '../../api/services';
-import { CaptionCardItem, CaptionsList } from '../../components';
+import { CaptionCardItem, GeneratedCaptionsList } from '../../components';
 import { LoadingButton } from '@mui/lab';
 
 const StartFromScratch = () => {
@@ -181,7 +181,7 @@ const StartFromScratch = () => {
       >
         Captions generated for you
       </Typography>
-      <CaptionsList subject={formData.subject} captionsList={captionsList} loading={loading}/>
+      <GeneratedCaptionsList subject={formData.subject} captionsList={captionsList} loading={loading}/>
     </Container>
   );
 };

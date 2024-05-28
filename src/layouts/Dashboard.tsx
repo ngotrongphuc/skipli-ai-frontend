@@ -22,13 +22,7 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
-
-type DrawerItemType = {
-  text: string;
-  slug: string;
-  icon: React.ReactNode;
-  func?: () => void;
-};
+import { DrawerItemType } from 'utils/types';
 
 const drawerWidth = 240;
 
