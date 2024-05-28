@@ -5,6 +5,7 @@ import Profile from '../pages/Profile';
 import Dashboard from '../layouts/Dashboard';
 import PrivateRoute from './PrivateRoute';
 import StartFromScratch from '../pages/Services/StartFromScratch';
+import GetInspired from '../pages/Services/GetInspired';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: 'services/start-from-scratch',
         element: <StartFromScratch />,
+      },
+      {
+        path: 'services/get-inspired',
+        element: <GetInspired />,
       },
       {
         path: 'profile',

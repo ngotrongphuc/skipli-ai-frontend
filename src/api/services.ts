@@ -17,13 +17,43 @@ export const generatePostCaptions = async (payload: {
   }
 };
 
-export const saveGeneratedContent = async (payload: {
+export const generatePostIdeas = async (payload: {
+  topic: string;
+}) => {
+  try {
+    const { data } = await axiosInstance.post(
+      `/generate-post-ideas`,
+      payload,
+    );
+    return data;
+  } catch (error: any) {
+    alert(error.response.data);
+    throw error;
+  }
+};
+
+export const generateCaptionsFromPostIdea = async (payload: {
+  idea: string;
+}) => {
+  try {
+    const { data } = await axiosInstance.post(
+      `/generate-captions-from-ideas`,
+      payload,
+    );
+    return data;
+  } catch (error: any) {
+    alert(error.response.data);
+    throw error;
+  }
+};
+
+export const saveContent = async (payload: {
   phoneNumber: string;
   caption: string;
 }) => {
   try {
     const { data } = await axiosInstance.post(
-      `/save-generated-content`,
+      `/save-content`,
       payload,
     );
     return data;

@@ -45,7 +45,7 @@ const StartFromScratch = () => {
     }));
   };
 
-  const generateCaption = async () => {
+  const generateCaptions = async () => {
     if (Object.values(formData).some((value: string) => value === '')) {
       setHasError(true);
       return;
@@ -86,11 +86,11 @@ const StartFromScratch = () => {
       <Typography variant="h4" fontWeight="600" fontFamily="dosis" mb={3}>
         Generate unique captions from scratch
       </Typography>
-      <FormControl sx={{ mb: 3 }} error={socialNetworkError}>
-        <Typography variant="h5" fontWeight="600" fontFamily="dosis">
+      <FormControl error={socialNetworkError} sx={{ mb: 3 }}>
+        <Typography variant="h5" fontWeight="600" fontFamily="dosis" mb={1}>
           What kind of post do you want a caption for?
         </Typography>
-        <FormHelperText sx={{ fontSize: 15, mb: 2, ml: 0 }}>
+        <FormHelperText sx={{ fontSize: 15, mt: 1, ml: 0 }}>
           {socialNetworkError && '* Please select a platform'}
         </FormHelperText>
         <Box>
@@ -132,16 +132,15 @@ const StartFromScratch = () => {
           </Button>
         </Box>
       </FormControl>
-      <FormControl sx={{ mb: 3 }} error={subjectError}>
-        <Typography variant="h5" fontWeight="600" fontFamily="dosis">
+      <FormControl error={subjectError} sx={{ mb: 3 }}>
+        <Typography variant="h5" fontWeight="600" fontFamily="dosis" mb={1}>
           What topic do you want a caption for?
         </Typography>
-        <FormHelperText sx={{ fontSize: 15, mb: 2, ml: 0 }}>
+        <FormHelperText sx={{ fontSize: 15, mt: 1, ml: 0 }}>
           {subjectError && '* Please input your topic'}
         </FormHelperText>
         <TextField
           variant="outlined"
-          sx={{ mb: 3 }}
           name="subject"
           value={formData.subject}
           onChange={handleChange}
@@ -149,11 +148,11 @@ const StartFromScratch = () => {
         />
       </FormControl>
       <FormControl error={toneError} sx={{ mb: 3 }}>
-        <Typography variant="h5" fontWeight="600" fontFamily="dosis">
+        <Typography variant="h5" fontWeight="600" fontFamily="dosis" mb={1}>
           What should your caption sound like?
         </Typography>
-        <FormHelperText sx={{ fontSize: 15, mb: 2, ml: 0 }}>
-          {toneError && 'Please select a tone'}
+        <FormHelperText sx={{ fontSize: 15, mt: 1, ml: 0 }}>
+          {toneError && '* Please select a tone'}
         </FormHelperText>
         <Select name="tone" value={formData.tone} onChange={handleChange}>
           {toneItems.map((item) => (
@@ -167,10 +166,10 @@ const StartFromScratch = () => {
         loading={loading}
         variant="contained"
         size="large"
-        onClick={generateCaption}
+        onClick={generateCaptions}
         sx={{ mb: 5 }}
       >
-        Generate caption
+        Generate captions
       </LoadingButton>
 
       <Typography
@@ -178,7 +177,7 @@ const StartFromScratch = () => {
         variant="h4"
         fontWeight="600"
         fontFamily="dosis"
-        mb={4}
+        mb={3}
       >
         Captions generated for you
       </Typography>

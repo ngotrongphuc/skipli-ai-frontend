@@ -1,13 +1,9 @@
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
   Typography,
 } from '@mui/material';
-import { saveGeneratedContent, unsaveContent } from '../api/services';
-import React, { useState } from 'react';
-import { useAuth } from '../auth/AuthContext';
 import ShareButton from './ShareButton';
 import SaveButton from './SaveButton';
 

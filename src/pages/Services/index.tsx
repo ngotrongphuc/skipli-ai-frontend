@@ -11,6 +11,10 @@ const Services = () => {
     navigate('../services/start-from-scratch');
   };
 
+  const goToGetInspired = () => {
+    navigate('../services/get-inspired');
+  };
+
   return (
     <Container
       sx={{
@@ -51,6 +55,7 @@ const Services = () => {
         variant="outlined"
         startIcon={<EmojiObjectsIcon sx={{ width: 50, height: 50 }} />}
         sx={{ padding: 3, borderRadius: 4, width: 700 }}
+        onClick={goToGetInspired}
       >
         <Box
           textAlign="start"

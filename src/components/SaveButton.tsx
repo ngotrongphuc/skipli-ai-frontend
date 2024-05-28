@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { useAuth } from '../auth/AuthContext';
 import React, { useState } from 'react';
-import { saveGeneratedContent, unsaveContent } from '../api/services';
+import { saveContent, unsaveContent } from '../api/services';
 
 const SaveButton = ({ content }: { content: string }) => {
   const { phoneNumber } = useAuth();
@@ -13,7 +13,7 @@ const SaveButton = ({ content }: { content: string }) => {
       const { success } = await unsaveContent({ phoneNumber, captionId });
       success && setCaptionId(null);
     } else {
-      const { success, captionId } = await saveGeneratedContent({
+      const { success, captionId } = await saveContent({
         phoneNumber,
         caption: content,
       });
