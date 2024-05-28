@@ -55,7 +55,7 @@ const SavedContentsList = ({
                               contentsList[contentId].captions[captionId],
                             contentId,
                             captionId,
-                            onDelete
+                            onDelete,
                           }}
                         />
                       );

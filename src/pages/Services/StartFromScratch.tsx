@@ -6,8 +6,6 @@ import {
   FormHelperText,
   MenuItem,
   Select,
-  Skeleton,
-  Stack,
   TextField,
   Typography,
 } from '@mui/material';
@@ -16,7 +14,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { generatePostCaptions } from '../../api/services';
-import { CaptionCardItem, GeneratedCaptionsList } from '../../components';
+import { GeneratedCaptionsList } from '../../components';
 import { LoadingButton } from '@mui/lab';
 
 const StartFromScratch = () => {
@@ -181,7 +179,11 @@ const StartFromScratch = () => {
       >
         Captions generated for you
       </Typography>
-      <GeneratedCaptionsList subject={formData.subject} captionsList={captionsList} loading={loading}/>
+      <GeneratedCaptionsList
+        subject={formData.subject}
+        captionsList={captionsList}
+        loading={loading}
+      />
     </Container>
   );
 };

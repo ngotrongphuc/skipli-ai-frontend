@@ -1,8 +1,8 @@
 import { Box, Container, Typography } from '@mui/material';
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import InputPhone from './InputPhone';
 import InputOtp from './InputOtp';
-import  { useAuth } from '../../auth/AuthContext';
+import { useAuth } from '../../auth/AuthContext';
 import { createNewAccessCode, validateAccessCode } from '../../api/auth';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { unformatPhoneNumber } from '../../utils';
@@ -11,9 +11,17 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>('');
   const [otp, setOTP] = useState<string>('');
+  const [loadingPhoneNumber, setLoadingPhoneNumber] = useState<boolean>(false);
+  const [loadingOTP, setLoadingOTP] = useState<boolean>(false);
   const [isOTPStep, setIsOTPStep] = useState(false);
-  const { phoneNumber:storedPhoneNumber, setPhoneNumber: setStoredPhoneNumber } = useAuth();
-  const unformatedPhoneNumber = useMemo(()=>unformatPhoneNumber(phoneNumber),[phoneNumber])
+  const {
+    phoneNumber: storedPhoneNumber,
+    setPhoneNumber: setStoredPhoneNumber,
+  } = useAuth();
+  const unformatedPhoneNumber = useMemo(
+    () => unformatPhoneNumber(phoneNumber),
+    [phoneNumber],
+  );
   const navigate = useNavigate();
 
   const handleChangePhoneNumber = (newPhoneNumber: string) => {
@@ -25,25 +33,29 @@ const Login = () => {
   };
 
   const submitPhoneNumber = async () => {
+    setLoadingPhoneNumber(true);
     try {
-      // await createNewAccessCode({
-      //   phoneNumber: unformatedPhoneNumber,
-      // });
+      await createNewAccessCode({
+        phoneNumber: unformatedPhoneNumber,
+      });
       setIsOTPStep(true);
     } catch (error) {}
+    setLoadingPhoneNumber(false);
   };
 
   const submitOtp = async () => {
+    setLoadingOTP(true);
     try {
-      // const result = await validateAccessCode({
-      //   accessCode: otp,
-      //   phoneNumber: unformatedPhoneNumber,
-      // });
-      // if(result.success){
+      const result = await validateAccessCode({
+        accessCode: otp,
+        phoneNumber: unformatedPhoneNumber,
+      });
+      if (result.success) {
         setStoredPhoneNumber(unformatedPhoneNumber);
-        navigate('dashboard')
-      // }
+        navigate('dashboard');
+      }
     } catch (error) {}
+    setLoadingOTP(false);
   };
 
   const goBack = () => {
@@ -52,7 +64,7 @@ const Login = () => {
 
   useEffect(() => {
     storedPhoneNumber && navigate('dashboard', { replace: true });
-  }, []);
+  }, [storedPhoneNumber, navigate]);
 
   return (
     <Box
@@ -88,12 +100,14 @@ const Login = () => {
             otp={otp}
             handleChangeOtp={handleChangeOtp}
             submitOtp={submitOtp}
+            loading={loadingOTP}
           />
         ) : (
           <InputPhone
             phoneNumber={phoneNumber}
             handleChangePhoneNumber={handleChangePhoneNumber}
             submitPhoneNumber={submitPhoneNumber}
+            loading={loadingPhoneNumber}
           />
         )}
       </Container>

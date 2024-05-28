@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import {
   generateCaptionsFromPostIdea,
-  generatePostCaptions,
   generatePostIdeas,
 } from '../../api/services';
 import React, { useEffect, useRef, useState } from 'react';
@@ -157,7 +156,11 @@ const GetInspired = () => {
       >
         Captions generated for you
       </Typography>
-      <GeneratedCaptionsList subject={formData.idea} captionsList={captionsList} loading={loadingCaptions} />
+      <GeneratedCaptionsList
+        subject={formData.idea}
+        captionsList={captionsList}
+        loading={loadingCaptions}
+      />
     </Container>
   );
 };

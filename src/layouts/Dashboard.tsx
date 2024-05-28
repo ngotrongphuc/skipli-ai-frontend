@@ -100,7 +100,7 @@ const Dashboard = () => {
   const segments = pathname.split('/');
   const currentRoutePath = segments[segments.length - 1];
   const [shouldShowGoBack, setShouldShowGoBack] = useState<boolean>(false);
-  const {setPhoneNumber}=useAuth()
+  const { setPhoneNumber } = useAuth();
 
   const DrawerItems: DrawerItemType[] = [
     {
@@ -118,7 +118,7 @@ const Dashboard = () => {
       slug: '/',
       icon: <LogoutOutlinedIcon sx={{ transform: 'scaleX(-1)' }} />,
       func: () => {
-        setPhoneNumber(null)
+        setPhoneNumber(null);
       },
     },
   ];
@@ -129,6 +129,7 @@ const Dashboard = () => {
     } else {
       setShouldShowGoBack(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentRoutePath]);
 
   const goBack = () => {

@@ -1,18 +1,14 @@
-import { Button, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Typography } from '@mui/material';
 import { MuiTelInput } from 'mui-tel-input';
-import React from 'react';
-
-interface InputPhoneNumberProps {
-  phoneNumber: string;
-  handleChangePhoneNumber: (value: string) => void;
-  submitPhoneNumber: () => void;
-}
+import { InputPhoneNumberType } from 'utils/types';
 
 const InputPhone = ({
   phoneNumber,
   handleChangePhoneNumber,
   submitPhoneNumber,
-}: InputPhoneNumberProps) => {
+  loading,
+}: InputPhoneNumberType) => {
   return (
     <>
       <Typography fontSize={20}>
@@ -28,14 +24,16 @@ const InputPhone = ({
         fullWidth
         sx={{ marginY: 2 }}
       />
-      <Button
+      <LoadingButton
         variant="contained"
+        size="large"
         fullWidth
         sx={{ padding: 2 }}
         onClick={submitPhoneNumber}
+        loading={loading}
       >
         Send verification code
-      </Button>
+      </LoadingButton>
     </>
   );
 };

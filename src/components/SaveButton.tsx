@@ -22,7 +22,7 @@ const SaveButton = ({ content }: { content: ContentType }) => {
         captionId,
       });
       if (success) {
-        content.onDelete?.(contentId,captionId);
+        content.onDelete?.(contentId, captionId);
         setContentId(null);
         setCaptionId(null);
       }

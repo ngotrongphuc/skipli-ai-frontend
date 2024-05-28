@@ -17,14 +17,9 @@ export const generatePostCaptions = async (payload: {
   }
 };
 
-export const generatePostIdeas = async (payload: {
-  topic: string;
-}) => {
+export const generatePostIdeas = async (payload: { topic: string }) => {
   try {
-    const { data } = await axiosInstance.post(
-      `/generate-post-ideas`,
-      payload,
-    );
+    const { data } = await axiosInstance.post(`/generate-post-ideas`, payload);
     return data;
   } catch (error: any) {
     alert(error.response.data);
@@ -53,10 +48,7 @@ export const saveContent = async (payload: {
   caption: string;
 }) => {
   try {
-    const { data } = await axiosInstance.post(
-      `/save-content`,
-      payload,
-    );
+    const { data } = await axiosInstance.post(`/save-content`, payload);
     return data;
   } catch (error: any) {
     alert(error.response.data);

@@ -1,5 +1,4 @@
-import { Box, Button, ButtonGroup, Container, Typography } from '@mui/material';
-import React from 'react';
+import { Box, Button, Container, Typography } from '@mui/material';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import EmojiObjectsIcon from '@mui/icons-material/EmojiObjects';
 import { useNavigate } from 'react-router-dom';
@@ -23,12 +22,7 @@ const Services = () => {
         flexDirection: 'column',
       }}
     >
-      <Typography
-        variant="h4"
-        fontWeight="600"
-        fontFamily="dosis"
-        mb={5}
-      >
+      <Typography variant="h4" fontWeight="600" fontFamily="dosis" mb={5}>
         Generate post ideas and captions in seconds
       </Typography>
       <Button

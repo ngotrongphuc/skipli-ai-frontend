@@ -3,6 +3,21 @@ export type AuthContextType = {
   setPhoneNumber: (phoneNumber: string | null) => void;
 };
 
+export type InputPhoneNumberType = {
+  phoneNumber: string;
+  handleChangePhoneNumber: (value: string) => void;
+  submitPhoneNumber: () => void;
+  loading: boolean;
+};
+
+export type InputOtpType = {
+  phoneNumber: string;
+  otp: string;
+  handleChangeOtp: (value: string) => void;
+  submitOtp: () => void;
+  loading: boolean;
+};
+
 export type DrawerItemType = {
   text: string;
   slug: string;

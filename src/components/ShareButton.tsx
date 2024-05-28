@@ -1,12 +1,5 @@
-import {
-  Box,
-  Button,
-  ClickAwayListener,
-  IconButton,
-  Paper,
-  Tooltip,
-} from '@mui/material';
-import React, { useState } from 'react';
+import { Box, Button, ClickAwayListener, Tooltip } from '@mui/material';
+import { useState } from 'react';
 import {
   EmailIcon,
   EmailShareButton,

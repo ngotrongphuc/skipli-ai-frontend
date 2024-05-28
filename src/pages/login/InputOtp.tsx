@@ -1,34 +1,31 @@
-import { Button, Typography } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+import { Typography } from '@mui/material';
 import { MuiOtpInput } from 'mui-one-time-password-input';
-import React from 'react';
-
-interface InputOtpProps {
-  phoneNumber: string;
-  otp: string;
-  handleChangeOtp: (value: string) => void;
-  submitOtp: () => void;
-}
+import { InputOtpType } from 'utils/types';
 
 const InputOtp = ({
   phoneNumber,
   otp,
   handleChangeOtp,
   submitOtp,
-}: InputOtpProps) => {
+  loading,
+}: InputOtpType) => {
   return (
     <>
       <Typography fontSize={20}>
         Skipli AI has sent an OTP code to: {phoneNumber}
       </Typography>
       <MuiOtpInput length={6} value={otp} onChange={handleChangeOtp} py={2} />
-      <Button
+      <LoadingButton
         variant="contained"
+        size="large"
         fullWidth
         sx={{ padding: 2 }}
         onClick={submitOtp}
+        loading={loading}
       >
         Submit
-      </Button>
+      </LoadingButton>
     </>
   );
 };

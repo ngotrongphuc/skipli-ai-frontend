@@ -30,6 +30,7 @@ const Profile = () => {
 
   useEffect(() => {
     fetchUserGeneratedContent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
