@@ -7,7 +7,14 @@ import {
 import ShareButton from './ShareButton';
 import SaveButton from './SaveButton';
 
-const CaptionCardItem = ({ content }: { content: string }) => {
+type ContentType={
+  content: {
+    subject: string;
+    caption: string;
+  }
+}
+
+const CaptionCardItem = ({ content }: ContentType) => {
   return (
     <Card
       variant="outlined"
@@ -15,7 +22,7 @@ const CaptionCardItem = ({ content }: { content: string }) => {
     >
       <CardContent>
         <Typography fontWeight="600" fontSize={20} fontFamily="dosis">
-          {content}
+          {content.caption}
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: 'end' }}>

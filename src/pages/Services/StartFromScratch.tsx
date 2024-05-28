@@ -181,7 +181,7 @@ const StartFromScratch = () => {
       >
         Captions generated for you
       </Typography>
-      <CaptionsList captionsList={captionsList} loading={loading} />
+      <CaptionsList subject={formData.subject} captionsList={captionsList} loading={loading}/>
     </Container>
   );
 };

@@ -3,31 +3,49 @@ import { useAuth } from '../auth/AuthContext';
 import React, { useState } from 'react';
 import { saveContent, unsaveContent } from '../api/services';
 
-const SaveButton = ({ content }: { content: string }) => {
+type ContentType = {
+  content: {
+    subject: string;
+    caption: string;
+  };
+};
+
+const SaveButton = ({ content }: ContentType) => {
   const { phoneNumber } = useAuth();
+  const [contentId, setContentId] = useState<string | null>(null);
   const [captionId, setCaptionId] = useState<string | null>(null);
 
   const saveCaption = async () => {
     if (!phoneNumber) return;
-    if (captionId) {
-      const { success } = await unsaveContent({ phoneNumber, captionId });
-      success && setCaptionId(null);
-    } else {
-      const { success, captionId } = await saveContent({
+    if (contentId && captionId) {
+      const { success } = await unsaveContent({
         phoneNumber,
-        caption: content,
+        contentId,
+        captionId,
       });
-      success && setCaptionId(captionId);
+      if (success) {
+        setContentId(null);
+        setCaptionId(null);
+      }
+    } else {
+      const { success, contentId, captionId } = await saveContent({
+        ...content,
+        phoneNumber,
+      });
+      if (success) {
+        setContentId(contentId);
+        setCaptionId(captionId);
+      }
     }
   };
 
   return (
     <Button
-      variant={captionId ? 'contained' : 'outlined'}
+      variant={contentId ? 'contained' : 'outlined'}
       size="large"
       onClick={saveCaption}
     >
-      {captionId ? 'Saved' : 'Save'}
+      {contentId ? 'Saved' : 'Save'}
     </Button>
   );
 };

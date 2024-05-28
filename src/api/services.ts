@@ -49,6 +49,7 @@ export const generateCaptionsFromPostIdea = async (payload: {
 
 export const saveContent = async (payload: {
   phoneNumber: string;
+  subject: string;
   caption: string;
 }) => {
   try {
@@ -65,6 +66,7 @@ export const saveContent = async (payload: {
 
 export const unsaveContent = async (payload: {
   phoneNumber: string;
+  contentId: string;
   captionId: string;
 }) => {
   try {

@@ -14,7 +14,14 @@ import {
   FacebookShareButton,
 } from 'react-share';
 
-const TooltipModal = ({ content }: { content: string }) => {
+type ContentType={
+  content: {
+    subject: string;
+    caption: string;
+  }
+}
+
+const TooltipModal = ({ content }: ContentType) => {
   const shareUrl = 'https://www.skiplinow.com/';
   const title = 'Skipli';
 
@@ -24,14 +31,14 @@ const TooltipModal = ({ content }: { content: string }) => {
       <FacebookShareButton url={shareUrl} style={{ marginRight: 20 }}>
         <FacebookIcon size={40} round />
       </FacebookShareButton>
-      <EmailShareButton url="" body={content}>
+      <EmailShareButton url="" subject={content.subject} body={content.caption}>
         <EmailIcon size={40} round />
       </EmailShareButton>
     </Box>
   );
 };
 
-const ShareButton = ({ content }: { content: string }) => {
+const ShareButton = ({ content }: ContentType) => {
   const [tooltipOpen, setTooltipOpen] = useState(false);
 
   const openTooltip = () => {

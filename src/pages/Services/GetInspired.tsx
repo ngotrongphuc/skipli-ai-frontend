@@ -157,7 +157,7 @@ const GetInspired = () => {
       >
         Captions generated for you
       </Typography>
-      <CaptionsList captionsList={captionsList} loading={loadingCaptions} />
+      <CaptionsList subject={formData.idea} captionsList={captionsList} loading={loadingCaptions} />
     </Container>
   );
 };

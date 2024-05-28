@@ -3,9 +3,11 @@ import React from 'react';
 import CaptionCardItem from './CaptionCardItem';
 
 const CaptionsList = ({
+  subject,
   captionsList,
   loading,
 }: {
+  subject:string;
   captionsList: string[];
   loading: boolean;
 }) => {
@@ -28,7 +30,7 @@ const CaptionsList = ({
       ) : (
         <Stack spacing={3}>
           {captionsList.map((item: string, index: number) => {
-            return <CaptionCardItem key={index} content={item} />;
+            return <CaptionCardItem key={index} content={{subject, caption:item}} />;
           })}
         </Stack>
       )}
